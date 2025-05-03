@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: read-service
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30002
+  selector:
+    app: read-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: read-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: read-service
+  template:
+    metadata:
+      labels:
+        app: read-service
+    spec:
+      containers:
+        - name: read-service
+          image: sebastianarce/read-golang
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MONGO_URI
+              value: mongodb://mongo:27017
+            - name: MONGO_DATABASE
+              value: testdb
+

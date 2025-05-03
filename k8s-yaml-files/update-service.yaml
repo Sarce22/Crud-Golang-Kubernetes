@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: update-service
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30003
+  selector:
+    app: update-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: update-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: update-service
+  template:
+    metadata:
+      labels:
+        app: update-service
+    spec:
+      containers:
+        - name: update-service
+          image: sebastianarce/update-golang
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MONGO_URI
+              value: mongodb://mongo:27017
+            - name: MONGO_DATABASE
+              value: testdb
+

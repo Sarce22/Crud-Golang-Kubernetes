@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: create-service
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30001
+  selector:
+    app: create-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: create-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: create-service
+  template:
+    metadata:
+      labels:
+        app: create-service
+    spec:
+      containers:
+        - name: create-service
+          image: sebastianarce/create-golang
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MONGO_URI
+              value: mongodb://mongo:27017
+            - name: MONGO_DATABASE
+              value: testdb
+
