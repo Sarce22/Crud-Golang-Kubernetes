@@ -109,7 +109,8 @@ if [[ "$confirm" =~ ^[sS]$ ]]; then
       port="${PORTS[$i]}"
       echo -e "${YELLOW}→ Probando $svc en http://localhost:$port${NC}"
       
-      if curl --silent --fail "http://localhost:$port" > /dev/null; then
+      if curl --silent --fail "http://localhost:$port/health" > /dev/null; then
+
         echo -e "${GREEN}✔ $svc respondió correctamente.${NC}"
       else
         echo -e "${RED}✖ $svc no respondió o falló.${NC}"
