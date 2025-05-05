@@ -23,12 +23,6 @@ func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/create", controller.CreateUser).Methods("POST")
 
-	// ✅ Registrar el endpoint /hola en el router de mux
-	router.HandleFunc("/hola", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("¡Hola Mundo! 🌎"))
-	}).Methods("GET")
-
 	log.Println("🚀 Servidor corriendo en http://localhost:8080")
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
-
