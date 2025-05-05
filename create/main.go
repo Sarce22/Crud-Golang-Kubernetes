@@ -23,6 +23,10 @@ func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/create", controller.CreateUser).Methods("POST")
 
+	http.HandleFunc("/hola", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("¡Hola Mundo! 🌎"))
+	})
+
 	log.Println("🚀 Servidor corriendo en http://localhost:8080")
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
