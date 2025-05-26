@@ -101,47 +101,55 @@ function verify_endpoints() {
     # Prueba Create
     echo -e "${YELLOW}→ Probando servicio 'create' en http://localhost:30001/create${NC}"
     if curl --silent --fail -X POST "http://localhost:30001/create" -d '{
-  "nombre": "Test User",
-  "telefono": "3001234567",
-  "direccion": "Calle 123, Ciudad",
-  "cedula": "77799",
-  "correo": "testuggsher@example.com"
-}' -H "Content-Type: application/json"; then
-  echo -e "${GREEN}[✔] El servicio 'create' respondió correctamente.${NC}"
-else
-  echo -e "${RED}[✖] El servicio 'create' falló.${NC}"
-fi
-
-
-    # Prueba Read
-    echo -e "${YELLOW}→ Probando servicio 'read' en http://localhost:30002/read${NC}"
-    if curl --silent --fail "http://localhost:30002/read"; then
-        echo -e "${GREEN}✔ Read respondió correctamente.${NC}"
+      "nombre": "Alejandro valencia",
+      "telefono": "31224774589",
+      "direccion": "Calarca city",
+      "cedula": "30320",
+      "correo": "alejldfg121landro@gmail.com"
+    }' -H "Content-Type: application/json"; then
+        echo -e "${GREEN}[✔] El servicio 'create' respondió correctamente.${NC}"
     else
-        echo -e "${RED}✖ Read no respondió o falló.${NC}"
+        echo -e "${RED}[✖] El servicio 'create' falló.${NC}"
     fi
 
-    # Prueba Update (por cédula)
-   echo -e "${YELLOW}→ Probando servicio 'update'" 
-   if curl --silent --fail -X PUT "http://localhost:30003/update/update-by-cedula/100" -d '{
-  "nombre": "Sebastian Arce Pareja",
-  "telefono": "225151161",
-  "direccion": "USA-Colombia",
-  "correo": "sebastianUSA482@gmial.com"
-}' -H "Content-Type: application/json"; then
-  echo -e "${GREEN}[✔] El servicio 'update' respondió correctamente.${NC}"
-else
-  echo -e "${RED}[✖] El servicio 'update' falló.${NC}"
-fi
-
-    # Prueba Delete (por userID)
-    echo -e "${YELLOW}→ Probando servicio 'delete' en http://localhost:30004/users/cedula/987654321${NC}"
-    if curl --silent --fail -X DELETE "http://localhost:30004/users/cedula/987654321"; then
-        echo -e "${GREEN}✔ Delete respondió correctamente.${NC}"
+    # Prueba Read all
+    echo -e "${YELLOW}→ Probando servicio 'read all' en http://localhost:30002/read${NC}"
+    if curl --silent --fail "http://localhost:30002/read"; then
+        echo -e "${GREEN}[✔] Read all respondió correctamente.${NC}"
     else
-        echo -e "${RED}✖ Delete no respondió o falló.${NC}"
+        echo -e "${RED}[✖] Read all falló.${NC}"
+    fi
+
+    # Prueba Read by cedula
+    echo -e "${YELLOW}→ Probando servicio 'read by cedula' en http://localhost:30002/read/200${NC}"
+    if curl --silent --fail "http://localhost:30002/read/200"; then
+        echo -e "${GREEN}[✔] Read by cedula respondió correctamente.${NC}"
+    else
+        echo -e "${RED}[✖] Read by cedula falló.${NC}"
+    fi
+
+    # Prueba Update
+    echo -e "${YELLOW}→ Probando servicio 'update by cedula' en http://localhost:30003/update/update-by-cedula/100${NC}"
+    if curl --silent --fail -X PUT "http://localhost:30003/update/update-by-cedula/100" -d '{
+      "nombre": "Sebastian Arce Pareja",
+      "telefono": "225151161",
+      "direccion": "USA-Colombia",
+      "correo": "sebastianUSA482@gmial.com"
+    }' -H "Content-Type: application/json"; then
+        echo -e "${GREEN}[✔] El servicio 'update' respondió correctamente.${NC}"
+    else
+        echo -e "${RED}[✖] El servicio 'update' falló.${NC}"
+    fi
+
+    # Prueba Delete
+    echo -e "${YELLOW}→ Probando servicio 'delete' en http://localhost:30004/users/cedula/258${NC}"
+    if curl --silent --fail -X DELETE "http://localhost:30004/users/cedula/200"; then
+        echo -e "${GREEN}[✔] Delete respondió correctamente.${NC}"
+    else
+        echo -e "${RED}[✖] Delete falló.${NC}"
     fi
 }
+
 
 # ============================
 # Menú principal
